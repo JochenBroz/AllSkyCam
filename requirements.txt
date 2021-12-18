@@ -1,8 +1,7 @@
-Adafruit-DHT
 ExifRead
 jupyter
 matplotlib
 numpy
 opencv-python
 picamera
-RPi.GPIO
+RPi.GPIOpicamera
