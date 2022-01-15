@@ -26,14 +26,28 @@ def set_gain(camera, gain, value):
     elif ret != 0:
         raise exc.PiCameraMMALError(ret)
 
+        
 def set_analog_gain(camera, value):
     """Set the gain of a PiCamera object to a given value."""
     set_gain(camera, MMAL_PARAMETER_ANALOG_GAIN, value)
 
+    
 def set_digital_gain(camera, value):
     """Set the digital gain of a PiCamera object to a given value."""
     set_gain(camera, MMAL_PARAMETER_DIGITAL_GAIN, value)
 
+def wait_for_period(p):
+    """sleep until time period is over"""
+    t = time.time()
+    st = (int(t/p)+1)*p-t
+    time.sleep(st)
+    
+    
+def strip_bayer_data(buffer):
+    stream.seek(0)
+    stream = buffer.read()
+    rawDataLocation = stream.find(b'BRCM')
+    return stream[0:rawDataLocation]
 
 
 def get_bayer_data_from_stream(buffer):
