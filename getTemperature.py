@@ -5,6 +5,11 @@ import requests
 import RPi.GPIO as GPIO
 import sys
 
+import json
+with open('config.json') as f:
+    config = json.load(f)
+    
+
 GPIO.setmode(GPIO.BOARD)
 Signal_Pin = 16
 GPIO.setup(Signal_Pin, GPIO.OUT)
@@ -15,7 +20,7 @@ sensor = Adafruit_DHT.DHT11
 gpio = 4
 
 # Daten auslesen
-url_string = 'http://influxDB.local:8086/write?db=signals'
+url_string = config["influx_url"]
 humidity, temperature = Adafruit_DHT.read_retry(sensor, gpio)
 
 if temperature <30:

@@ -30,21 +30,21 @@ def writeInflux():
     
     data = getForcast();
     post_data = 'temperature,location=Weather value=%f'%data["temperature"]
+    r=requests.post(url_string, data=post_data)
+    
+    post_data = 'dew_point,location=Weather value=%f'%data["dew_point"]
     requests.post(url_string, data=post_data)
     
-    post_data = 'dew_point, location=Weather value=%f'%data["dew_point"]
+    post_data = 'cloud_cover,location=Weather value=%f'%data["cloud_cover"]
     requests.post(url_string, data=post_data)
     
-    post_data = 'cloud_cover, location=Weather value=%f'%data["cloud_cover"]
+    post_data = 'visibility,location=Weather value=%f'%data["visibility"]
     requests.post(url_string, data=post_data)
     
-    post_data = 'visibility, location=Weather value=%f'%data["visibility"]
+    post_data = 'pressure_msl,location=Weather value=%f'%data["pressure_msl"]
     requests.post(url_string, data=post_data)
     
-    post_data = 'pressure_msl, location=Weather value=%f'%data["pressure_msl"]
-    requests.post(url_string, data=post_data)
-    
-    post_data = 'wind_speed, location=Weather value=%f'%data["wind_speed"]
+    post_data = 'wind_speed,location=Weather value=%f'%data["wind_speed"]
     requests.post(url_string, data=post_data)
     
     post_data = 'wind_direction, location=Weather value=%f'%data["wind_direction"]
