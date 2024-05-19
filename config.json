@@ -1,0 +1,5 @@
+{
+    "influx_url":"http://influxDB.local:8086/write?db=signals",
+    "dwd_station_id":"01279",
+    "time_zone":"Europe/Berlin"
+}
