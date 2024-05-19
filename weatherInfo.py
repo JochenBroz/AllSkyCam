@@ -1,3 +1,5 @@
+#!/home/pi/AllSkyCam/venv/bin/python
+
 import requests
 import datetime
 import pytz
