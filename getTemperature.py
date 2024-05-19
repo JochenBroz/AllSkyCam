@@ -18,11 +18,11 @@ gpio = 4
 url_string = 'http://influxDB.local:8086/write?db=signals'
 humidity, temperature = Adafruit_DHT.read_retry(sensor, gpio)
 
-if temperature <55:
+if temperature <30:
   GPIO.output(Signal_Pin, GPIO.HIGH)
   print('New heater state: ', GPIO.input(Signal_Pin))
 
-if temperature >= 55:
+if temperature >= 30:
   GPIO.output(Signal_Pin, GPIO.LOW)
   print('New heater state: ', GPIO.input(Signal_Pin))
 
