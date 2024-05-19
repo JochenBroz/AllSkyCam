@@ -4,6 +4,7 @@ from picamera.mmalobj import to_rational
 import time
 import exifread
 import numpy as np
+from io import BytesIO
 
 
 MMAL_PARAMETER_ANALOG_GAIN = mmal.MMAL_PARAMETER_GROUP_CAMERA + 0x59
@@ -44,10 +45,10 @@ def wait_for_period(p):
     
     
 def strip_bayer_data(buffer):
-    stream.seek(0)
+    buffer.seek(0)
     stream = buffer.read()
     rawDataLocation = stream.find(b'BRCM')
-    return stream[0:rawDataLocation]
+    return BytesIO(stream[0:rawDataLocation])
 
 
 def get_bayer_data_from_stream(buffer):
