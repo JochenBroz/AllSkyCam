@@ -1,10 +1,12 @@
 #!/usr/bin/python3
-import requests
+import mqtt
 import shutil
-def data():
-    stat = shutil.disk_usage('.')
-    return 'disk_usage,location="pi4b.local" total=%d,used=%d,free=%d'%(stat.total, stat.used, stat.free)
+from gpiozero import CPUTemperature
+
+stat = shutil.disk_usage('.')
+
+mqtt.postData('disk/totat', stat.total)
+mqtt.postData('disk/used', stat.used)
+mqtt.postData('disk/free', stat.free)
+mqtt.postData('cpu/temperature', CPUTemperature().temperature)
         
-if __name__=='__main__':
-    url_string = 'http://influxDB.local:8086/write?db=signals'
-    r = requests.post(url_string, data=data())

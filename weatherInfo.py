@@ -1,9 +1,9 @@
 #!/home/pi/AllSkyCam/venv/bin/python
-
 import requests
 import datetime
 import pytz
 import json
+import mqtt
 
 
 with open('config.json') as f:
@@ -25,34 +25,23 @@ def getForcast():
     return response.json()['weather'][0]
 
 
-def writeInflux():
+def writeMQTT():
     url_string = config["influx_url"];
     
     data = getForcast();
-    post_data = 'temperature,location=Weather value=%f'%data["temperature"]
-    r=requests.post(url_string, data=post_data)
-    
-    post_data = 'dew_point,location=Weather value=%f'%data["dew_point"]
-    requests.post(url_string, data=post_data)
-    
-    post_data = 'cloud_cover,location=Weather value=%f'%data["cloud_cover"]
-    requests.post(url_string, data=post_data)
-    
-    post_data = 'visibility,location=Weather value=%f'%data["visibility"]
-    requests.post(url_string, data=post_data)
-    
-    post_data = 'pressure_msl,location=Weather value=%f'%data["pressure_msl"]
-    requests.post(url_string, data=post_data)
-    
-    post_data = 'wind_speed,location=Weather value=%f'%data["wind_speed"]
-    requests.post(url_string, data=post_data)
-    
-    post_data = 'wind_direction, location=Weather value=%f'%data["wind_direction"]
-    requests.post(url_string, data=post_data)
-    
+    mqtt.postData('weather/precipitation',data['precipitation']);
+    mqtt.postData('weather/pressure_msl',data['pressure_msl']);
+    mqtt.postData('weather/sunshine',data['sunshine']);
+    mqtt.postData('weather/temperature',data['temperature']);
+    mqtt.postData('weather/wind_direction',data['wind_direction']);
+    mqtt.postData('weather/wind_speed',data['wind_speed']);
+    mqtt.postData('weather/cloud_cover',data['cloud_cover']);
+    mqtt.postData('weather/dew_point',data['dew_point']);
+    mqtt.postData('weather/visibility',data['visibility']);
+    mqtt.postData('weather/wind_gust_speed',data['wind_gust_speed']);
     return data
 
 
 if __name__=='__main__':
-    writeInflux()
+    writeMQTT()
     

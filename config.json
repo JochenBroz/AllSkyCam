@@ -1,5 +1,10 @@
 {
     "influx_url":"http://influxDB.local:8086/write?db=signals",
     "dwd_station_id":"01279",
-    "time_zone":"Europe/Berlin"
+    "time_zone":"Europe/Berlin",
+    "mqtt_client_id":"AllSkyCam",
+    "mqtt_host":"influxdb.local",
+    "mqtt_port":1883,
+    "mqtt_topic":"AllSkyCam",
+    "target_temperature":30
 }
