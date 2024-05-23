@@ -1,3 +1,5 @@
 .ipynp_checkpoints
 *.jpg
 venv
+*.mp4
+*.mpg
